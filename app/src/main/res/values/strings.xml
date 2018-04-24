@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">quizdroid</string>
+    <string name="title_activity_topic_over_view">TopicOverViewActivity</string>
+</resources>
