@@ -17,6 +17,7 @@ class TopicOverViewActivity : AppCompatActivity() {
 
         val options = arrayOf(arrayOf("wrong answer 1", "wrong answer 2", "correct answer", "wrong answer 3"), arrayOf("correct answer","wrong answer","another wrong answer","yet another wrong one"))
         val questions = arrayOf("This is the first question. What is the correct answer?", "This is the second question. What is the correct answer?")
+        val correctAnswers = intArrayOf(2, 0)
         val title = findViewById<TextView>(R.id.topicOverViewTitleTextView)
         val description = findViewById<TextView>(R.id.descriptionTextView)
         val numberOfQuestions = findViewById<TextView>(R.id.numberOfQuestionsTextView)
@@ -33,6 +34,8 @@ class TopicOverViewActivity : AppCompatActivity() {
             next.putExtra("options", options)
             next.putExtra("currentQuestionNumber", 0)
             next.putExtra("totalNumberOfQuestions", questions.size)
+            next.putExtra("correctAnswers", correctAnswers)
+            next.putExtra("currentScore", 0)
             startActivity(next)
         }
     }
