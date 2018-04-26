@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">quizdroid</string>
     <string name="title_activity_topic_over_view">TopicOverViewActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
