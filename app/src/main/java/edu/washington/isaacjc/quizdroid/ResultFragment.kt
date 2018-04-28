@@ -32,27 +32,23 @@ class ResultFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_result, container, false)
-
-
-
+        val topicRepo = QuizApp.NewQuizApp().getTopicRepo().getTopics()
 
         val chosenAnswer = arguments!!.getInt("chosenAnswer", 0)
         var current = arguments!!.getInt("current", 0)
-        val answers = arguments!!.getIntArray("correctAnswers")
-        val options = arguments!!.getStringArray("options")
-        val questions = arguments!!.getStringArray("questions")
-        val size = arguments!!.getInt("size")
+        val question = topicRepo[arguments!!.getInt("category")].getQuesions()[current]
+        val options = question.getOptions()
+
+        val size = topicRepo[arguments!!.getInt("category")].getQuesions().size
         var currentScore = arguments!!.getInt("currentScore", 0)
 
-        val shiftingIndex = current*4
 
-
-        if (options[chosenAnswer+shiftingIndex] == options[shiftingIndex+answers[current]] as String) {
+        if (question.getCorrectIndex() == chosenAnswer) {
             currentScore+=1
         }
 
-        view.findViewById<TextView>(R.id.chosenAnswerTextView).text = options[chosenAnswer+shiftingIndex] as String
-        view.findViewById<TextView>(R.id.correctAnswerTextView).text = options[shiftingIndex+answers[current]] as String
+        view.findViewById<TextView>(R.id.chosenAnswerTextView).text = options[chosenAnswer]
+        view.findViewById<TextView>(R.id.correctAnswerTextView).text = options[question.getCorrectIndex()]
         view.findViewById<TextView>(R.id.playerStatTextView).text = String.format("You have %d out of %d correct!", currentScore, size)
 
         current+=1
@@ -68,13 +64,9 @@ class ResultFragment : Fragment() {
             button.text = "NEXT"
             button.setOnClickListener{
                 val bundle = Bundle()
-                bundle.putInt("size", arguments!!.getInt("size"))
                 bundle.putInt("current", current)
                 bundle.putInt("currentScore", currentScore)
-                bundle.putIntArray("correctAnswers", arguments!!.getIntArray("correctAnswers"))
-                bundle.putStringArray("options", arguments!!.getStringArray("options"))
-                bundle.putStringArray("questions", arguments!!.getStringArray("questions"))
-
+                bundle.putInt("category", arguments!!.getInt("category"))
 
                 val fragment = QuestionFragment()
                 fragment.arguments = bundle

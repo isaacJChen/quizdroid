@@ -33,45 +33,42 @@ class QuestionFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_question, container, false)
-
-
-
-
-
+        val topicRepo = QuizApp.NewQuizApp().getTopicRepo().getTopics()
 
         val current = arguments!!.getInt("current", 0)
-        val size = arguments!!.getInt("size", 0)
-        val correctAnswers = arguments!!.getStringArray("correctAnswers")
         var chosenAnswer = 0
-        val questions = arguments!!.getStringArray("questions")
+
+        //this is a list of questions
+        val question = topicRepo[arguments!!.getInt("category")].getQuesions()[current]
         val currentScore = arguments!!.getInt("currentScore", 0)
-        view.findViewById<TextView>(R.id.questionTextView).text = questions[current]
+
+        view.findViewById<TextView>(R.id.questionTextView).text = question.getQuestion()
         val button = view.findViewById<Button>(R.id.submitButton)
 
 
-        val options = arguments!!.getStringArray("options")
+        val options = question.getOptions()
 
         val option1 = view.findViewById<RadioButton>(R.id.radioButton)
-        val shiftingIndex = 4*current
-        option1.text = options[shiftingIndex+0]
+
+        option1.text = options[0]
         option1.setOnClickListener {
             button.isEnabled = true
             chosenAnswer = 0
         }
         val option2 = view.findViewById<RadioButton>(R.id.radioButton2)
-        option2.text = options[shiftingIndex+1]
+        option2.text = options[1]
         option2.setOnClickListener {
             button.isEnabled = true
             chosenAnswer = 1
         }
         val option3 = view.findViewById<RadioButton>(R.id.radioButton3)
-        option3.text = options[shiftingIndex+2]
+        option3.text = options[2]
         option3.setOnClickListener {
             button.isEnabled = true
             chosenAnswer = 2
         }
         val option4 = view.findViewById<RadioButton>(R.id.radioButton4)
-        option4.text = options[shiftingIndex+3]
+        option4.text = options[3]
         option4.setOnClickListener {
             button.isEnabled = true
             chosenAnswer = 3
@@ -79,15 +76,11 @@ class QuestionFragment : Fragment() {
 
         button.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("category",arguments!!.getString("category"))
-            bundle.putString("description",arguments!!.getString("description"))
-            bundle.putInt("size", arguments!!.getInt("size"))
+
             bundle.putInt("current", current)
             bundle.putInt("currentScore", currentScore)
-            bundle.putIntArray("correctAnswers", arguments!!.getIntArray("correctAnswers"))
-            bundle.putStringArray("options", arguments!!.getStringArray("options"))
-            bundle.putStringArray("questions", arguments!!.getStringArray("questions"))
             bundle.putInt("chosenAnswer", chosenAnswer)
+            bundle.putInt("category", arguments!!.getInt("category"))
 
 
             val fragment = ResultFragment()

@@ -12,16 +12,27 @@ import android.widget.ListView
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
+    val topicRepo = QuizApp.NewQuizApp().getTopicRepo().getTopics()
+    var categories:Array<String> = Array<String>(topicRepo.size){
+        ""
+    }
+    val description:Array<String> = Array<String>(topicRepo.size){
+        ""
+    }
 
-    val categories = arrayOf("Math","Physics", "Marvel Super Heroes")
-    val description = arrayOf("Math is freaking hard", "Newton was good at physics", "I cannot wait for infinity war")
-
+    init {
+        for ((i, elem) in topicRepo.withIndex()) {
+            categories[i] = elem.getTitle()
+            description[i] = elem.getShortDescription()
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val listView = findViewById<ListView>(R.id.main_listview)
         listView.adapter = CustomAdaptor(this, categories, description)
+
     }
 
     private class CustomAdaptor(context: Context, categories: Array<String>, description: Array<String>): BaseAdapter() {
@@ -54,8 +65,7 @@ class MainActivity : AppCompatActivity() {
             title.text = mCategories[position]
             row.setOnClickListener {
                 val next = Intent(mContext, TopicOverViewActivity::class.java)
-                next.putExtra("category", mCategories[position])
-                next.putExtra("description", mDescription[position])
+                next.putExtra("category", position)
 
                 mContext.startActivity(next)
             }

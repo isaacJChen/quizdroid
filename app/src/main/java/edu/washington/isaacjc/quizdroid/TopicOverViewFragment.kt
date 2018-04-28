@@ -18,30 +18,24 @@ class TopicOverViewFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
 
-
         // Inflate the layout for this fragment
         Log.i("Fragment", "ONCREATEVIEWISCALLED!!!")
+        val topicRepo = QuizApp.NewQuizApp().getTopicRepo().getTopics()
         val view = inflater.inflate(R.layout.fragment_topic_over_view, container, false)
         val title = view.findViewById<TextView>(R.id.topicOverViewTitleTextView)
         val description = view.findViewById<TextView>(R.id.descriptionTextView)
         val numberOfQuestions = view.findViewById<TextView>(R.id.numberOfQuestionsTextView)
         val beginButton = view.findViewById<Button>(R.id.beginButton)
 
-        title.text = arguments!!.getString("category")
-        description.text = arguments!!.getString("description")
-        val size = arguments!!.getInt("size")
+        title.text = topicRepo[arguments!!.getInt("category")].getTitle()
+        description.text = topicRepo[arguments!!.getInt("category")].getShortDescription()
+        val size = topicRepo[arguments!!.getInt("category")].getQuesions().size
         numberOfQuestions.text = String.format("number of questions: %d", size)
 
         beginButton.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("category",arguments!!.getString("category"))
-            bundle.putString("description",arguments!!.getString("description"))
-            bundle.putInt("size", arguments!!.getInt("size"))
+            bundle.putInt("category",arguments!!.getInt("category"))
             bundle.putInt("current", 0)
-            bundle.putIntArray("correctAnswers", arguments!!.getIntArray("correctAnswers"))
-            bundle.putStringArray("options", arguments!!.getStringArray("options"))
-            bundle.putStringArray("questions", arguments!!.getStringArray("questions"))
-
 
             val fragment = QuestionFragment()
             fragment.arguments = bundle
