@@ -1,20 +1,20 @@
 package edu.washington.isaacjc.quizdroid
 
-class Quiz(question:String, options: Array<String>, correctIndex:Int) {
-    private val quesiton = question
-    private val options = options
-    private val correctIndex = correctIndex
+class Quiz(text:String, answers: Array<String>, answer:Int) {
+    private val text = text
+    private val answers = answers
+    private val answer = answer
 
     fun getQuestion(): String{
-        return this.quesiton
+        return this.text
     }
 
     fun getOptions() : Array<String> {
-        return  this.options
+        return  this.answers
     }
 
     fun getCorrectIndex() : Int {
-        return this.correctIndex
+        return this.answer
     }
 
 }

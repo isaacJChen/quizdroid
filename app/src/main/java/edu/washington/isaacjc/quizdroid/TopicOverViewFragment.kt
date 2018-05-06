@@ -20,7 +20,7 @@ class TopicOverViewFragment : Fragment() {
 
         // Inflate the layout for this fragment
         Log.i("Fragment", "ONCREATEVIEWISCALLED!!!")
-        val topicRepo = QuizApp.NewQuizApp().getTopicRepo().getTopics()
+        val topicRepo = QuizApp.NewQuizApp().getData()
         val view = inflater.inflate(R.layout.fragment_topic_over_view, container, false)
         val title = view.findViewById<TextView>(R.id.topicOverViewTitleTextView)
         val description = view.findViewById<TextView>(R.id.descriptionTextView)

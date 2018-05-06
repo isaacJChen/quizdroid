@@ -32,7 +32,7 @@ class ResultFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_result, container, false)
-        val topicRepo = QuizApp.NewQuizApp().getTopicRepo().getTopics()
+        val topicRepo = QuizApp.NewQuizApp().getData()
 
         val chosenAnswer = arguments!!.getInt("chosenAnswer", 0)
         var current = arguments!!.getInt("current", 0)
@@ -43,12 +43,12 @@ class ResultFragment : Fragment() {
         var currentScore = arguments!!.getInt("currentScore", 0)
 
 
-        if (question.getCorrectIndex() == chosenAnswer) {
+        if (question.getCorrectIndex()-1 == chosenAnswer) {
             currentScore+=1
         }
 
         view.findViewById<TextView>(R.id.chosenAnswerTextView).text = options[chosenAnswer]
-        view.findViewById<TextView>(R.id.correctAnswerTextView).text = options[question.getCorrectIndex()]
+        view.findViewById<TextView>(R.id.correctAnswerTextView).text = options[question.getCorrectIndex()-1]
         view.findViewById<TextView>(R.id.playerStatTextView).text = String.format("You have %d out of %d correct!", currentScore, size)
 
         current+=1

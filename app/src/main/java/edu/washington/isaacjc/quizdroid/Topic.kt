@@ -1,8 +1,8 @@
 package edu.washington.isaacjc.quizdroid
 
-class Topic(title:String, shortDescription:String, longDescription:String, questions :Array<Quiz>) {
+class Topic(title:String, desc:String, longDescription:String, questions :Array<Quiz>) {
     private val title = title
-    private val shortDescription = shortDescription
+    private val desc = desc
     private val longDescription = longDescription
     private val questions = questions
 
@@ -11,7 +11,7 @@ class Topic(title:String, shortDescription:String, longDescription:String, quest
     }
 
     fun getShortDescription():String {
-        return this.shortDescription
+        return this.desc
     }
 
     fun getLongDescription():String {

@@ -33,7 +33,7 @@ class QuestionFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_question, container, false)
-        val topicRepo = QuizApp.NewQuizApp().getTopicRepo().getTopics()
+        val topicRepo = QuizApp.NewQuizApp().getData()
 
         val current = arguments!!.getInt("current", 0)
         var chosenAnswer = 0
